@@ -1,0 +1,8 @@
+/.chemist
+/coverage
+/dist
+/.husky
+/lib
+/node_modules
+/.serverless
+/tmp
