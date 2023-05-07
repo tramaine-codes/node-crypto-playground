@@ -24,5 +24,5 @@ const signed = sign
 
 console.log(signed);
 console.log(
-  verify('sha512', Buffer.from('foo'), publicKey, Buffer.from(signed, 'base64'))
+  verify('sha512', Buffer.from(data), publicKey, Buffer.from(signed, 'base64'))
 );
