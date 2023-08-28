@@ -1,12 +1,16 @@
 /* eslint-disable no-console */
 import * as jose from 'jose';
 
-const unsecuredJwt = new jose.UnsecuredJWT({ 'urn:example:claim': true })
+const secret = new TextEncoder().encode(
+  'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2'
+);
+
+const jwt = await new jose.SignJWT({ 'urn:example:claim': true })
+  .setProtectedHeader({ alg: 'HS256' })
   .setIssuedAt()
   .setIssuer('urn:example:issuer')
   .setAudience('urn:example:audience')
-  .setExpirationTime('1h')
-  .encode();
+  .setExpirationTime('2h')
+  .sign(secret);
 
-console.log(unsecuredJwt);
-console.log(jose.decodeJwt(unsecuredJwt));
+console.log(jwt);
