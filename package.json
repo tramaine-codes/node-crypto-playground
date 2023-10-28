@@ -15,11 +15,11 @@
   "author": "Tramaine L. Gillus",
   "license": "ISC",
   "devDependencies": {
-    "@commitlint/cli": "18.0.0",
-    "@commitlint/config-conventional": "18.0.0",
-    "@types/node": "20.8.7",
-    "@typescript-eslint/eslint-plugin": "6.8.0",
-    "@typescript-eslint/parser": "6.8.0",
+    "@commitlint/cli": "18.2.0",
+    "@commitlint/config-conventional": "18.1.0",
+    "@types/node": "20.8.9",
+    "@typescript-eslint/eslint-plugin": "6.9.0",
+    "@typescript-eslint/parser": "6.9.0",
     "@vitest/coverage-v8": "0.34.6",
     "del-cli": "5.1.0",
     "eslint": "8.52.0",
@@ -31,6 +31,6 @@
     "vitest": "0.34.6"
   },
   "dependencies": {
-    "jose": "4.15.4"
+    "jose": "5.0.1"
   }
 }
