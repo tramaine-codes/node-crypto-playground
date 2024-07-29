@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { generateKeyPairSync } from 'node:crypto';
 
 const passphrase = 'top secret';
@@ -16,5 +15,8 @@ const { publicKey, privateKey } = generateKeyPairSync('ec', {
   },
 });
 
+// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(publicKey);
+
+// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(privateKey);

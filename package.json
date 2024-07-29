@@ -4,17 +4,14 @@
     "jose": "5.4.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.8.3",
     "@commitlint/cli": "19.3.0",
     "@commitlint/config-conventional": "19.2.2",
     "@types/node": "20.14.8",
-    "@typescript-eslint/eslint-plugin": "7.13.1",
-    "@typescript-eslint/parser": "7.13.1",
     "@vitest/coverage-v8": "1.6.0",
     "del-cli": "5.1.0",
-    "eslint": "8.57.0",
     "husky": "9.0.11",
     "lint-staged": "15.2.7",
-    "prettier": "3.3.2",
     "tsx": "4.15.7",
     "typescript": "5.5.2",
     "vitest": "1.6.0"
@@ -24,9 +21,9 @@
   "scripts": {
     "build": "npm run clean && npm test && tsc",
     "clean": "del-cli lib",
-    "format": "prettier . --write",
-    "lint": "eslint . --ext .js,.ts",
-    "lint:fix": "eslint . --ext .js,.ts --fix",
+    "format": "biome format --write --no-errors-on-unmatched .",
+    "lint": "biome lint --no-errors-on-unmatched .",
+    "lint:fix": "biome lint --apply --no-errors-on-unmatched .",
     "prepare": "husky",
     "test": "vitest run",
     "test:watch": "vitest"

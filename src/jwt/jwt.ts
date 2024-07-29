@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as jose from 'jose';
 
 const secret = new TextEncoder().encode(
@@ -13,4 +12,5 @@ const jwt = await new jose.SignJWT({ 'urn:example:claim': true })
   .setExpirationTime('2h')
   .sign(secret);
 
+// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(jwt);

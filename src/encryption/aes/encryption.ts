@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
 
 const data = 'foo';
@@ -12,7 +11,14 @@ const cipherText =
 const plainText =
   decipher.update(cipherText, 'base64', 'utf-8') + decipher.final('utf-8');
 
+// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(key.toString('base64'));
+
+// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(iv.toString('base64'));
+
+// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(cipherText);
+
+// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(plainText);
