@@ -4,13 +4,16 @@ import * as jose from 'jose';
 import { env } from '../../../infrastructure/env.js';
 
 const audience = env.AUTH0_AUDIENCE;
+const clientId = env.AUTH0_CLIENT_ID;
+const clientSecret = env.AUTH0_CLIENT_SECRET;
+const domain = env.AUTH0_DOMAIN;
 const issuer = env.AUTH0_ISSUER;
 const jwksUri = env.AUTH0_JWKS;
 
 const authenticationClient = new AuthenticationClient({
-  clientId: env.AUTH0_CLIENT_ID,
-  clientSecret: env.AUTH0_CLIENT_SECRET,
-  domain: env.AUTH0_DOMAIN,
+  clientId,
+  clientSecret,
+  domain,
 });
 const jwks = jose.createRemoteJWKSet(new URL(jwksUri));
 
