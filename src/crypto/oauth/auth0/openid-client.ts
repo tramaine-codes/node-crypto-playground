@@ -1,6 +1,8 @@
 import { Issuer } from 'openid-client';
 import { env } from '../../../infrastructure/env.js';
 
-const issuer = await Issuer.discover(env.AUTH0_ISSUER);
+const issuer = env.AUTH0_ISSUER;
+
+const issuerService = await Issuer.discover(issuer);
 // biome-ignore lint/suspicious/noConsoleLog: <explanation>
-console.log(issuer.metadata);
+console.log(issuerService.metadata);
