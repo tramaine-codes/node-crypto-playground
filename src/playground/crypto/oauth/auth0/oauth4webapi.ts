@@ -1,7 +1,7 @@
 import { JwtRsaVerifier } from 'aws-jwt-verify';
 import * as jose from 'jose';
 import * as oauth from 'oauth4webapi';
-import { env } from '../../../infrastructure/env.js';
+import { env } from '../../../infrastructure/env/env.js';
 
 const audience = env.AUTH0_AUDIENCE;
 const clientId = env.AUTH0_CLIENT_ID;

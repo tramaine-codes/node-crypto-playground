@@ -1,10 +1,7 @@
 /coverage
 /dist
 .env
-.eslintcache
-/.feast
 /lib
-/node_modules
 /.serverless
 /tmp
 
@@ -15,3 +12,13 @@ yarn-debug.log*
 yarn-error.log*
 
 !log*.ts
+
+*.js
+!lint-staged.config.js
+
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out

@@ -1,5 +1,5 @@
 import { Issuer } from 'openid-client';
-import { env } from '../../../infrastructure/env.js';
+import { env } from '../../../infrastructure/env/env.js';
 
 const issuer = env.AUTH0_ISSUER;
 
