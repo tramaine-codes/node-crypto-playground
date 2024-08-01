@@ -1,14 +1,13 @@
 import { AuthenticationClient } from 'auth0';
 import { JwtRsaVerifier } from 'aws-jwt-verify';
 import * as jose from 'jose';
-import { env } from '../../../infrastructure/env/env.js';
+import { Config } from '../../../infrastructure/config/config.js';
 
-const audience = env.AUTH0_AUDIENCE;
-const clientId = env.AUTH0_CLIENT_ID;
-const clientSecret = env.AUTH0_CLIENT_SECRET;
-const domain = env.AUTH0_DOMAIN;
-const issuer = env.AUTH0_ISSUER;
-const jwksUri = env.AUTH0_JWKS;
+const {
+  settings: {
+    auth0: { audience, clientId, clientSecret, domain, issuer, jwksUri },
+  },
+} = new Config();
 
 const authenticationClient = new AuthenticationClient({
   clientId,

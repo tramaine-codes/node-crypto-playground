@@ -1,7 +1,18 @@
 import * as cdk from 'aws-cdk-lib';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
 import type { Construct } from 'constructs';
-import { env } from '../playground/infrastructure/env/env.js';
+import { Config } from '../playground/infrastructure/config/config.js';
+
+const {
+  settings: {
+    cognito: {
+      domainPrefix,
+      resourceServerIdentifier,
+      userPoolClientName,
+      userPoolName,
+    },
+  },
+} = new Config();
 
 export class NodeCryptoPlaygroundStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -9,7 +20,7 @@ export class NodeCryptoPlaygroundStack extends cdk.Stack {
 
     const userPool = new cognito.UserPool(this, 'UserPool', {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
-      userPoolName: env.COGNITO_USER_POOL_NAME,
+      userPoolName,
     });
 
     const readScope = new cognito.ResourceServerScope({
@@ -24,7 +35,7 @@ export class NodeCryptoPlaygroundStack extends cdk.Stack {
       this,
       'ResourceServer',
       {
-        identifier: env.COGNITO_RESOURCE_SERVER_IDENTIFIER,
+        identifier: resourceServerIdentifier,
         userPool,
         scopes: [readScope, writeScope],
       }
@@ -33,7 +44,7 @@ export class NodeCryptoPlaygroundStack extends cdk.Stack {
     new cognito.UserPoolDomain(this, 'UserPoolDomain', {
       userPool,
       cognitoDomain: {
-        domainPrefix: env.COGNITO_DOMAIN,
+        domainPrefix,
       },
     });
 
@@ -52,7 +63,7 @@ export class NodeCryptoPlaygroundStack extends cdk.Stack {
       },
       refreshTokenValidity: cdk.Duration.days(1),
       userPool,
-      userPoolClientName: env.COGNITO_USER_POOL_CLIENT_NAME,
+      userPoolClientName,
     });
   }
 }

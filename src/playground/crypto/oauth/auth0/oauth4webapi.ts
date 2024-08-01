@@ -1,14 +1,14 @@
 import { JwtRsaVerifier } from 'aws-jwt-verify';
 import * as jose from 'jose';
 import * as oauth from 'oauth4webapi';
-import { env } from '../../../infrastructure/env/env.js';
+import { Config } from '../../../infrastructure/config/config.js';
 
-const audience = env.AUTH0_AUDIENCE;
-const clientId = env.AUTH0_CLIENT_ID;
-const clientSecret = env.AUTH0_CLIENT_SECRET;
-const issuer = env.AUTH0_ISSUER;
-const issuerUrl = new URL(env.AUTH0_ISSUER);
-const jwksUri = env.AUTH0_JWKS;
+const {
+  settings: {
+    auth0: { audience, clientId, clientSecret, issuer, jwksUri },
+  },
+} = new Config();
+const issuerUrl = new URL(issuer);
 
 const client = {
   client_id: clientId,

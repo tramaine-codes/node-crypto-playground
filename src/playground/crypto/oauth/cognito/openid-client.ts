@@ -3,14 +3,20 @@ import { Effect } from 'effect';
 import * as jose from 'jose';
 import { Issuer } from 'openid-client';
 import { CognitoGateway } from '../../../infrastructure/cognito/cognito-gateway.js';
-import { env } from '../../../infrastructure/env/env.js';
+import { Config } from '../../../infrastructure/config/config.js';
+
+const {
+  settings: {
+    cognito: { issuerHostname },
+  },
+} = new Config();
 
 const cognitoGateway = CognitoGateway.build();
 const { clientId, clientSecret, userPoolId } = await Effect.runPromise(
   cognitoGateway.credentials()
 );
 
-const issuer = `https://${env.COGNITO_ISSUER_HOSTNAME}/${userPoolId}`;
+const issuer = `https://${issuerHostname}/${userPoolId}`;
 
 const issuerService = await Issuer.discover(issuer);
 // biome-ignore lint/suspicious/noConsoleLog: <explanation>

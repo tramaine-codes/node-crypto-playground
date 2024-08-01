@@ -1,13 +1,23 @@
 import { Effect } from 'effect';
 import { NoSuchElementException } from 'effect/Cause';
 import { CognitoClient } from '../../vendor/cognito-client.js';
-import { env } from '../env/env.js';
+import { Config } from '../config/config.js';
 
 export class CognitoGateway {
-  private readonly userPoolName = env.COGNITO_USER_POOL_NAME;
-  private readonly clientName = env.COGNITO_USER_POOL_CLIENT_NAME;
+  private readonly userPoolClientName;
+  private readonly userPoolName;
 
-  constructor(private readonly client: CognitoClient) {}
+  constructor(
+    private readonly client: CognitoClient,
+    {
+      settings: {
+        cognito: { userPoolClientName, userPoolName },
+      },
+    }: Config
+  ) {
+    this.userPoolClientName = userPoolClientName;
+    this.userPoolName = userPoolName;
+  }
 
   credentials() {
     return Effect.Do.pipe(
@@ -23,7 +33,7 @@ export class CognitoGateway {
           )
       ),
       Effect.bind('userPoolClient', ({ userPoolId }) =>
-        this.client.userPoolClient(userPoolId, this.clientName)
+        this.client.userPoolClient(userPoolId, this.userPoolClientName)
       ),
       Effect.bind('clientId', ({ userPoolClient: { ClientId } }) =>
         Effect.fromNullable(ClientId)
@@ -32,7 +42,7 @@ export class CognitoGateway {
         'NoSuchElementException',
         () =>
           new NoSuchElementException(
-            `client id for ${this.clientName} not found`
+            `client id for ${this.userPoolClientName} not found`
           )
       ),
       Effect.bind('userPoolClientDetails', ({ clientId, userPoolId }) =>
@@ -47,7 +57,7 @@ export class CognitoGateway {
         'NoSuchElementException',
         () =>
           new NoSuchElementException(
-            `client secret for ${this.clientName} not found`
+            `client secret for ${this.userPoolClientName} not found`
           )
       ),
       Effect.andThen(({ clientId, clientSecret, userPoolId }) => ({
@@ -59,6 +69,6 @@ export class CognitoGateway {
   }
 
   static build() {
-    return new CognitoGateway(CognitoClient.build());
+    return new CognitoGateway(CognitoClient.build(), new Config());
   }
 }
