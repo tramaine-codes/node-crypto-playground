@@ -1,22 +1,27 @@
 import * as cdk from 'aws-cdk-lib';
 import * as cognito from 'aws-cdk-lib/aws-cognito';
 import type { Construct } from 'constructs';
-import { Config } from '../playground/infrastructure/config/config.js';
-
-const {
-  settings: {
-    cognito: {
-      domainPrefix,
-      resourceServerIdentifier,
-      userPoolClientName,
-      userPoolName,
-    },
-  },
-} = new Config();
+import type { Config } from '../playground/infrastructure/config/config.js';
 
 export class NodeCryptoPlaygroundStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(
+    scope: Construct,
+    id: string,
+    config: Config,
+    props?: cdk.StackProps
+  ) {
     super(scope, id, props);
+
+    const {
+      settings: {
+        cognito: {
+          domainPrefix,
+          resourceServerIdentifier,
+          userPoolClientName,
+          userPoolName,
+        },
+      },
+    } = config;
 
     const userPool = new cognito.UserPool(this, 'UserPool', {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
