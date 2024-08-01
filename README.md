@@ -41,17 +41,18 @@ The environment variables have place holder values that need to be replaced with
 
 ## Commands
 
-| Command              | Description                                               |
-| -------------------- | --------------------------------------------------------- |
-| `npm run build`      | Check for TypeScript errors.                              |
-| `npm run watch`      | Watch for changes and check for TypeScript errors.        |
-| `npm run test`       | Execute unit tests.                                       |
-| `npm run cdk deploy` | Deploy a CDK stack to AWS.                                |
-| `npm run cdk diff`   | Deploy a CDK stack to AWS.                                |
-| `npm run cdk synth`  | Emit synethesize CloudFormation template for a CDK stack. |
-| `npm run format`     | Format source files.                                      |
-| `npm run lint`       | Run linter against source files.                          |
-| `npm run lint:fix`   | Lint source files and fix issues disovered by the linter. |
+| Command               | Description                                                 |
+| --------------------- | ----------------------------------------------------------- |
+| `npm run build`       | Check for TypeScript errors.                                |
+| `npm run watch`       | Watch for changes and check for TypeScript errors.          |
+| `npm run test`        | Execute unit tests.                                         |
+| `npm run cdk deploy`  | Deploy a CDK stack to AWS.                                  |
+| `npm run cdk diff`    | Compare a deployed stack with current state.                |
+| `npm run cdk destroy` | Delete a CDK stack (and its associated resources) from AWS. |
+| `npm run cdk synth`   | Emit synethesize CloudFormation template for a CDK stack.   |
+| `npm run format`      | Format source files.                                        |
+| `npm run lint`        | Run linter against source files.                            |
+| `npm run lint:fix`    | Lint source files and fix issues disovered by the linter.   |
 
 ## Command Examples
 
@@ -71,4 +72,10 @@ npx tsx src/playground/crypto/oauth/auth0/auth0.ts
 
 ```sh
 npx tsx src/playground/crypto/oauth/cognito/openid-client.ts
+```
+
+### Delete AWS Cognito Resources
+
+```sh
+npm run cdk destroy -- --all --force
 ```
