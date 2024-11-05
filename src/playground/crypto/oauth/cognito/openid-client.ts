@@ -1,7 +1,7 @@
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
 import { Effect } from 'effect';
 import * as jose from 'jose';
-import { Issuer } from 'openid-client';
+import * as client from 'openid-client';
 import { CognitoGateway } from '../../../infrastructure/cognito/cognito-gateway.js';
 import { Config } from '../../../infrastructure/config/config.js';
 
@@ -18,18 +18,11 @@ const { clientId, clientSecret, userPoolId } = await Effect.runPromise(
 
 const issuer = `https://${issuerHostname}/${userPoolId}`;
 
-const issuerService = await Issuer.discover(issuer);
+const config = await client.discovery(new URL(issuer), clientId, clientSecret);
 // biome-ignore lint/suspicious/noConsoleLog: <explanation>
-console.log(issuerService.metadata);
+console.log(config.serverMetadata());
 
-const client = new issuerService.Client({
-  client_id: clientId,
-  client_secret: clientSecret,
-});
-
-const grantResponse = await client.grant({
-  grant_type: 'client_credentials',
-});
+const grantResponse = await client.clientCredentialsGrant(config);
 // biome-ignore lint/style/noNonNullAssertion: <explanation>
 const accessToken = grantResponse.access_token!;
 const claims = jose.decodeJwt<{ client_id: string }>(accessToken);
