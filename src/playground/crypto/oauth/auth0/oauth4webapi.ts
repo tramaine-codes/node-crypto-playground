@@ -12,9 +12,8 @@ const issuerUrl = new URL(issuer);
 
 const client = {
   client_id: clientId,
-  client_secret: clientSecret,
-  token_endpoint_auth_method: 'client_secret_post',
 } satisfies oauth.Client;
+const clientAuth = oauth.ClientSecretPost(clientSecret);
 
 const jwks = jose.createRemoteJWKSet(new URL(jwksUri));
 const as = await oauth.processDiscoveryResponse(
@@ -22,10 +21,15 @@ const as = await oauth.processDiscoveryResponse(
   await oauth.discoveryRequest(issuerUrl)
 );
 
-const grantResponse = await oauth.clientCredentialsGrantRequest(as, client, {
-  audience,
-  grant_type: 'client_credentials',
-});
+const grantResponse = await oauth.clientCredentialsGrantRequest(
+  as,
+  client,
+  clientAuth,
+  {
+    audience,
+    grant_type: 'client_credentials',
+  }
+);
 
 const response = await oauth.processClientCredentialsResponse(
   as,
