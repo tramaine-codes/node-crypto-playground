@@ -36,14 +36,13 @@ const response = await oauth.processClientCredentialsResponse(
   client,
   grantResponse
 );
-// biome-ignore lint/style/noNonNullAssertion: <explanation>
+// biome-ignore lint/style/noNonNullAssertion: testing
 const accessToken = response.access_token!.toString();
 
 const { payload } = await jose.jwtVerify(accessToken, jwks, {
   issuer,
   audience,
 });
-// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(payload);
 
 const verifier = JwtRsaVerifier.create({
@@ -51,5 +50,4 @@ const verifier = JwtRsaVerifier.create({
   issuer,
   jwksUri,
 });
-// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(await verifier.verify(accessToken));

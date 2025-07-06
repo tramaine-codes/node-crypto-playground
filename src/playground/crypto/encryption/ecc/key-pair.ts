@@ -15,8 +15,5 @@ const { publicKey, privateKey } = generateKeyPairSync('ec', {
   },
 });
 
-// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(publicKey);
-
-// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(privateKey);

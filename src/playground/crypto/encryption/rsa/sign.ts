@@ -21,10 +21,7 @@ const signed = sign
   .sign({ key: privateKey, passphrase })
   .toString('base64');
 
-// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(signed);
-
-// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(
   verify('sha512', Buffer.from(data), publicKey, Buffer.from(signed, 'base64'))
 );

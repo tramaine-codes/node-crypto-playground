@@ -12,5 +12,4 @@ const issuerService = await client.discovery(
   clientId,
   clientSecret
 );
-// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(issuerService.serverMetadata());

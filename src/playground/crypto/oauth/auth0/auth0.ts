@@ -25,7 +25,6 @@ const { payload } = await jose.jwtVerify(accessToken, jwks, {
   issuer,
   audience,
 });
-// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(payload);
 
 const verifier = JwtRsaVerifier.create({
@@ -33,5 +32,4 @@ const verifier = JwtRsaVerifier.create({
   issuer,
   jwksUri,
 });
-// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(await verifier.verify(accessToken));

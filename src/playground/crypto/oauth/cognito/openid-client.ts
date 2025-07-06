@@ -19,18 +19,16 @@ const { clientId, clientSecret, userPoolId } = await Effect.runPromise(
 const issuer = `https://${issuerHostname}/${userPoolId}`;
 
 const config = await client.discovery(new URL(issuer), clientId, clientSecret);
-// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(config.serverMetadata());
 
 const grantResponse = await client.clientCredentialsGrant(config);
-// biome-ignore lint/style/noNonNullAssertion: <explanation>
+// biome-ignore lint/style/noNonNullAssertion: testing
 const accessToken = grantResponse.access_token!;
 const claims = jose.decodeJwt<{ client_id: string }>(accessToken);
 
 const verifier = CognitoJwtVerifier.create({
   userPoolId,
 });
-// biome-ignore lint/suspicious/noConsoleLog: <explanation>
 console.log(
   await verifier.verify(accessToken, {
     clientId: claims.client_id,
